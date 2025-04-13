@@ -42,6 +42,13 @@ def save_log(level, message):
     db.commit()
     db.close()
 
+from bot.scheduler import start_scheduler
+
+if __name__ == '__main__':
+    print("Запуск Telegram-бота...")
+    start_scheduler()  # Запустить планировщик
+    app.run_polling()
+    
 if __name__ == '__main__':
     print("Запуск Telegram-бота...")
     app.run_polling()
