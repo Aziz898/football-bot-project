@@ -1,1 +1,9 @@
-
+python-telegram-bot==20.7
+Flask==3.0.2
+Flask-Login==0.6.3
+requests==2.31.0
+python-dotenv==1.0.1
+SQLAlchemy==2.0.28
+openai==1.25.2
+APScheduler==3.10.4
+gunicorn==21.2.0
