@@ -7,18 +7,21 @@ scheduler = AsyncIOScheduler()
 
 # Задачи
 
+from core.football_api import get_today_matches
+
 async def morning_matches():
-    # Здесь будет код получения матчей на сегодня (пока тестовый текст)
-    await send_channel_message("Доброе утро! Вот список матчей на сегодня... (пока тестовый текст)")
+    matches = get_today_matches()
+    if matches:
+        text = "⚽ Матчи на сегодня:\n\n"
+        for match in matches:
+            home = match['teams']['home']['name']
+            away = match['teams']['away']['name']
+            time = match['fixture']['date'][11:16]  # Часы:Минуты
+            text += f"{time} - {home} vs {away}\n"
+    else:
+        text = "Сегодня нет запланированных матчей."
 
-async def afternoon_news():
-    # Здесь будет код генерации новостей через нейросеть (пока тестовый текст)
-    await send_channel_message("Дневная новость или факт о футболе! (пока тестовый текст)")
-
-async def evening_news():
-    # Здесь будет код для вечернего поста (пока тестовый текст)
-    await send_channel_message("Вечерний факт о футболе! (пока тестовый текст)")
-
+    await send_channel_message(text)
 # Функция запуска планировщика
 def start_scheduler():
     scheduler.add_job(morning_matches, 'cron', hour=8, minute=0)
